@@ -15,7 +15,7 @@ function TodoFilter(props) {
     return (
         <div className="todo_filter">
         <ul className="filter_list">
-            <li className="filter_item">{uncompleted.length} tasks left</li>
+            <li className="filter_item">{uncompleted.length} task{uncompleted.length >= 2 ? 's' : ''} left</li>
             <li className="filter_item">
                 <button onClick={() => filterTasks('all')} className="btn">All</button>
                 <button onClick={() => filterTasks('uncompleted')} className="btn">Active</button>
