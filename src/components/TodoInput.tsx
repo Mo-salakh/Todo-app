@@ -1,16 +1,14 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { TodoContext } from "../useContext"
 
 
-interface InputProps {
-  isVisible: boolean
-  addTask: Function
-  toggleShow: Function
-}
-
-function TodoInput(props: InputProps): JSX.Element {
-
+function TodoInput(): JSX.Element {
+    const context = useContext(TodoContext)
+    if(context === null) {
+        throw new Error('Error on useContext')
+    }
+    const {addTask, isVisible, toggleShow} = context
     const [value, setValue] = useState('')
-    const { addTask, isVisible , toggleShow} = props
 
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {

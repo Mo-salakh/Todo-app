@@ -1,13 +1,14 @@
-import { Task } from "./Todo";
+import { useContext } from "react";
 import { TodoItem } from "./TodoItem";
+import { TodoContext } from "../useContext";
 
-interface TodoListProps {
-    toggleDone: Function
-    filteredTasks: Task[]
-}
 
-function TodoList(props: TodoListProps): JSX.Element {
-    let { toggleDone, filteredTasks = [] } = props;
+function TodoList(): JSX.Element {
+    const context = useContext(TodoContext)
+    if(context === null) {
+        throw new Error('Error on useContext')
+    }
+    const {toggleDone, filteredTasks} = context
 
     return (
         <>
