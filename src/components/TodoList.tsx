@@ -1,6 +1,12 @@
+import { Task } from "./Todo";
 import { TodoItem } from "./TodoItem";
 
-function TodoList(props) {
+interface TodoListProps {
+    toggleDone: Function
+    filteredTasks: Task[]
+}
+
+function TodoList(props: TodoListProps): JSX.Element {
     let { toggleDone, filteredTasks = [] } = props;
 
     return (

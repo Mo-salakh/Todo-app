@@ -19,7 +19,7 @@ code {
 
 .todo_content {
   text-align: center;
-  max-width: 1000px;
+  width: 100%;
   margin: auto;
   padding: 1rem;
   position: relative;
@@ -213,3 +213,19 @@ code {
 
 }
 
+@media screen and (max-width: 575px) {
+  
+  .filter_list{
+    flex-direction: column;
+    align-items: center;
+  }
+  .filter_item {
+    font-size: 1rem;
+    gap: 0;
+    padding: 10px;
+  }
+  .filter_item:nth-child(2) {
+    display: flex;
+    
+  }
+}

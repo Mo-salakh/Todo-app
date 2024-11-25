@@ -1,16 +1,23 @@
 import { useState } from "react"
 
-function TodoInput(props) {
+
+interface InputProps {
+  isVisible: boolean
+  addTask: Function
+  toggleShow: Function
+}
+
+function TodoInput(props: InputProps): JSX.Element {
 
     const [value, setValue] = useState('')
     const { addTask, isVisible , toggleShow} = props
 
 
-    function handleChange(e) {
+    function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
         setValue(e.target.value)
     }
 
-    function handleSubmit() {
+    function handleSubmit(): void {
         addTask(value)
         setValue('')
     }

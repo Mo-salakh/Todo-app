@@ -1,10 +1,10 @@
 import { Todo } from "./components/Todo";
 
 
-function App() {
+export function App():JSX.Element {
   return (
     <Todo />
   );
 }
 
-export default App;
+

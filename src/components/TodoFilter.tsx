@@ -1,8 +1,16 @@
 import { useEffect, useState } from "react"
+import { Task } from "./Todo";
 
-function TodoFilter(props) {
+
+interface TodoFilterProps {
+    tasks: Task[]
+    filterTasks: Function
+    clearCompleted: Function
+}
+
+function TodoFilter(props: TodoFilterProps): JSX.Element {
     const { tasks, filterTasks, clearCompleted } = props
-    const [uncompleted, setUncompleted] = useState([])
+    const [uncompleted, setUncompleted] = useState<Task[]>([])
 
 
     useEffect(() => {

@@ -1,6 +1,12 @@
-import doneI from '../img/free-icon-approve-sign-8373208.png'
+import doneI from '../img/free-icon-approve-sign-8373208.png';
+import { Task } from './Todo'
 
-function TodoItem(props) {
+
+interface TodoItemProps {
+    task: Task
+}
+
+function TodoItem(props: TodoItemProps) {
 
     const  {task} = props
 

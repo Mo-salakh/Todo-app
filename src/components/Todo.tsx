@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
-import { TodoList } from "./TodoList.jsx";
-import { TodoInput } from "./TodoInput.jsx";
-import { TodoFilter } from "./TodoFilter.jsx";
+import { TodoList } from "./TodoList";
+import { TodoInput } from "./TodoInput";
+import { TodoFilter } from "./TodoFilter";
 
 
+export interface Task {
+  id: string
+  text: string
+  done: boolean
+}
 
+function Todo():JSX.Element {
 
-function Todo() {
-
-    const [tasks, setTasks] = useState([]);
-    const [filteredTasks, setFilteredTasks] = useState(tasks);
+    const [tasks, setTasks] = useState<Task[]>([]);
+    const [filteredTasks, setFilteredTasks] = useState<Task[]>(tasks);
     const [isVisible, setIsVisible] = useState(false)
 
 
@@ -17,30 +21,33 @@ function Todo() {
       setFilteredTasks(tasks);
     }, [tasks]);
 
-    function addTask(newTask) {
+    function addTask(newTask: string): void {
       if (newTask.trim().length > 0) {
-        const fullTask = {
-          id: Date.now(),
+        const fullTask: Task = {
+          id: Date.now().toString(),
           text: newTask,
           done: false
-        };  
-        setTasks(prevTasks => {
+        };
+    
+        setTasks((prevTasks: Task[]): Task[] => {
           const updatedTasks = [...prevTasks, fullTask];
           return updatedTasks;
         });
-      }  
-    }  
+      }
+    }
   
-    function toggleDone(id) {
-      setTasks(prevTasks => prevTasks.map(task => task.id === id ? { ...task, done: !task.done } : task));
+    function toggleDone(id:string): void {
+      setTasks((prevTasks:Task[]): Task[] => 
+        prevTasks.map((task: Task): Task => task.id === id ? { ...task, done: !task.done } : task
+      ));
     }
 
 
-    function toggleShow() {
+    function toggleShow(): void {
       setIsVisible(!isVisible)  
     }
 
-    function filterTasks(type) {
+    function filterTasks(type:string): void | null {
       switch(type) {
         case 'all': 
         setFilteredTasks(tasks);
@@ -58,7 +65,7 @@ function Todo() {
       }
     }
 
-    function clearCompleted() {
+    function clearCompleted(): void {
       setTasks(tasks.filter(task => task.done !== true))
     }
 
@@ -66,7 +73,7 @@ function Todo() {
     <div className="todo_content">
       <h1 className="todo_title">Todos</h1>
       <TodoInput isVisible= {isVisible} addTask= {addTask} toggleShow={toggleShow} />
-      {isVisible ? <TodoList tasks={tasks} filteredTasks={filteredTasks} toggleDone={toggleDone} /> : null}
+      {isVisible ? <TodoList filteredTasks={filteredTasks} toggleDone={toggleDone} /> : null}
       <TodoFilter tasks= {tasks} filterTasks={filterTasks} clearCompleted={clearCompleted} />
     </div>
     );
