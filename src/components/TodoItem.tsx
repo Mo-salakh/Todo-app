@@ -1,5 +1,5 @@
 import doneI from '../img/free-icon-approve-sign-8373208.png';
-import { Task } from './Todo'
+import { Task } from '../useContext'
 
 
 interface TodoItemProps {
@@ -7,9 +7,7 @@ interface TodoItemProps {
 }
 
 function TodoItem(props: TodoItemProps) {
-
     const  {task} = props
-
     return (
         <>
         <i className='checking' style={{backgroundImage: task.done ? `url(${doneI})` : 'none', borderColor: task.done ? 'green' : '#cccc'}} />

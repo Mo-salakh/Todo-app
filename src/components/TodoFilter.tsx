@@ -1,15 +1,14 @@
-import { useEffect, useState } from "react"
-import { Task } from "./Todo";
+import { useContext, useEffect, useState } from "react"
+import { Task } from "../useContext";
+import { TodoContext } from "../useContext";
 
 
-interface TodoFilterProps {
-    tasks: Task[]
-    filterTasks: Function
-    clearCompleted: Function
-}
-
-function TodoFilter(props: TodoFilterProps): JSX.Element {
-    const { tasks, filterTasks, clearCompleted } = props
+function TodoFilter(): JSX.Element {
+    const context = useContext(TodoContext)
+    if(context === null) {
+        throw new Error('Error on useContext')
+    }
+    const { tasks, filterTasks, clearCompleted } = context
     const [uncompleted, setUncompleted] = useState<Task[]>([])
 
 
