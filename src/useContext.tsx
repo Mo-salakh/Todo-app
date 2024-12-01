@@ -1,4 +1,5 @@
 import {  createContext, useState } from "react";
+import { useLocalStorage } from "./useLocalStorage";
 
 export const TodoContext = createContext<TodoContextType | null>(null);
 
@@ -24,8 +25,8 @@ interface UserProviderProps {
 }
 
 export const TodoProvider = ({ children }: UserProviderProps) => {
-    const [tasks, setTasks] = useState<Task[]>([]);
-    const [filteredTasks, setFilteredTasks] = useState<Task[]>(tasks);
+    const [tasks, setTasks] = useLocalStorage('tasks',[]);
+    const [filteredTasks, setFilteredTasks] = useState(tasks);
     const [isVisible, setIsVisible] = useState(false)
 
     function addTask(newTask: string): void {
@@ -59,11 +60,11 @@ export const TodoProvider = ({ children }: UserProviderProps) => {
           setFilteredTasks(tasks);
           break;
           case 'completed': 
-          let completedTasks = tasks.filter(task => task.done === true)
+          let completedTasks = tasks.filter((task: { done: boolean; }) => task.done === true)
           setFilteredTasks(completedTasks)
             break;
           case 'uncompleted':
-          let uncompletedTasks = tasks.filter(task => task.done === false)
+          let uncompletedTasks = tasks.filter((task: { done: boolean; }) => task.done === false)
             setFilteredTasks(uncompletedTasks)
             break;
           default :
@@ -72,7 +73,7 @@ export const TodoProvider = ({ children }: UserProviderProps) => {
     }
 
     function clearCompleted(): void {
-        setTasks(tasks.filter(task => task.done !== true))
+        setTasks(tasks.filter((task: { done: boolean; }) => task.done !== true))
     }
 
     const value:TodoContextType = {
